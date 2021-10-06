@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 private lateinit var displayTextView: TextView
 private lateinit var operator: String
+const val STRING_KEY: String = "string_key"
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -21,7 +22,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         dataNumber()
+        //displayTextView.text = savedInstanceState?.getString(STRING_KEY)
+        savedInstanceState?.let { data ->
+            displayTextView.text = data.getString(STRING_KEY)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(STRING_KEY, displayTextView.text?.toString())
     }
 
 
