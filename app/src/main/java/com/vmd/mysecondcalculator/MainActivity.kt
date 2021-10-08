@@ -6,25 +6,22 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-private lateinit var displayTextView: TextView
-private lateinit var operator: String
 const val STRING_KEY: String = "string_key"
 
-
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-
-    var dotUsed: Boolean = false
-    var operatorPlus: Boolean = false
-    var operatorMinus: Boolean = false
-    var operatorMultiply: Boolean = false
-    var operatorDivide: Boolean = false
+    private lateinit var displayTextView: TextView
+    private lateinit var operator: String
+    private var dotUsed: Boolean = false
+    private var operatorPlus: Boolean = false
+    private var operatorMinus: Boolean = false
+    private var operatorMultiply: Boolean = false
+    private var operatorDivide: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
         dataNumber()
-        //displayTextView.text = savedInstanceState?.getString(STRING_KEY)
         savedInstanceState?.let { data ->
             displayTextView.text = data.getString(STRING_KEY)
         }
@@ -37,7 +34,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun dataNumber() {
-        displayTextView = findViewById(R.id.text_view)
+       displayTextView = findViewById(R.id.text_view)
 
 
         val buttonZero: Button = findViewById(R.id.btn0)
@@ -77,10 +74,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonEqual.setOnClickListener(this)
     }
 
-    override fun onClick(v: View?) {
+    override fun onClick(view: View?) {
 
-
-        when (v?.id) {
+        when (view?.id) {
             R.id.btn0 -> {
                 if (displayTextView.text == "" || displayTextView.text == "0") {
                     displayTextView.text = getString(R.string._0)
@@ -97,56 +93,56 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn2 -> {
                 if (displayTextView.text.toString() == getString(R.string._0)) {
-                    displayTextView.text = getString(R.string._1)
+                    displayTextView.text = getString(R.string._2)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._2))
             }
             R.id.btn3 -> {
                 if (displayTextView.text.toString() == getString(R.string._0)) {
-                    displayTextView.text = getString(R.string._1)
+                    displayTextView.text = getString(R.string._3)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._3))
             }
             R.id.btn4 -> {
                 if (displayTextView.text.toString() == getString(R.string._0)) {
-                    displayTextView.text = getString(R.string._1)
+                    displayTextView.text = getString(R.string._4)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._4))
             }
             R.id.btn5 -> {
                 if (displayTextView.text.toString() == getString(R.string._0)) {
-                    displayTextView.text = getString(R.string._1)
+                    displayTextView.text = getString(R.string._5)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._5))
             }
             R.id.btn6 -> {
                 if (displayTextView.text.toString() == getString(R.string._0)) {
-                    displayTextView.text = getString(R.string._1)
+                    displayTextView.text = getString(R.string._6)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._6))
             }
             R.id.btn7 -> {
                 if (displayTextView.text.toString() == getString(R.string._0)) {
-                    displayTextView.text = getString(R.string._1)
+                    displayTextView.text = getString(R.string._7)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._7))
             }
             R.id.btn8 -> {
                 if (displayTextView.text.toString() == getString(R.string._0)) {
-                    displayTextView.text = getString(R.string._1)
+                    displayTextView.text = getString(R.string._8)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._8))
             }
             R.id.btn9 -> {
                 if (displayTextView.text.toString() == getString(R.string._0)) {
-                    displayTextView.text = getString(R.string._1)
+                    displayTextView.text = getString(R.string._9)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._9))
@@ -171,7 +167,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if (displayTextView.text != "") {
                     if (!operatorPlus) {
                         displayTextView.text =
-                            displayTextView.text.toString().plus(getString(R.string.plus))
+                            displayTextView.text.toString().plus(" + ")
                         dotUsed = false
                     }
                     operator = "+"
@@ -183,24 +179,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_minus -> {
                 if (!operatorMinus) {
-                    displayTextView.text =
-                        displayTextView.text.toString().plus(getString(R.string.minus))
+                    displayTextView.text = when(displayTextView.text) {
+                        "" -> {
+                            operatorPlus = false
+                            displayTextView.text.toString().plus("-")
+                        }
+                        else -> {
+                            operatorPlus = true
+                            operatorMultiply = true
+                            operatorDivide = true
+                            displayTextView.text.toString().plus(" - ")
+                        }
+                    }
                     operatorMinus = displayTextView.text != getString(R.string.minus)
                     dotUsed = false
 
                 }
                 operator = "-"
-                operatorPlus = true
-                //operatorMinus = true
-                operatorMultiply = true
-                operatorDivide = true
             }
 
             R.id.btn_multiply -> {
                 if (displayTextView.text != "") {
                     if (!operatorMultiply) {
                         displayTextView.text =
-                            displayTextView.text.toString().plus(getString(R.string.multiply))
+                            displayTextView.text.toString().plus(" * ")
                         dotUsed = false
                     }
                     operator = "*"
@@ -214,7 +216,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if (displayTextView.text != "") {
                     if (!operatorDivide) {
                         displayTextView.text =
-                            displayTextView.text.toString().plus(getString(R.string.divide))
+                            displayTextView.text.toString().plus(" / ")
                         dotUsed = false
                     }
                     operator = "/"
@@ -226,62 +228,39 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btn_equal -> {
-                val firstOperand: Double
-                val secondOperand: Double
-                val operands: List<String>
+                val firstOperand: Float
+                val secondOperand: Float
+                val operand: String
+                val operands: List<String> = displayTextView.text.toString().split(" ")
+                if (operands.size > 2 && operands[2].isNotEmpty()) {
+                    firstOperand = operands[0].toFloat()
+                    secondOperand = operands[2].toFloat()
+                    operand = operands[1]
 
-                when (operator) {
-                    "+" -> {
-                        operands = displayTextView.text.toString().split('+')
-                        if (operands[1].isNotEmpty() ) {
-                            firstOperand = operands[0].toDouble()
-                            secondOperand = operands[1].toDouble()
-                            displayTextView.text = (firstOperand + secondOperand).toString()
-                        } else {
-                            displayTextView.text
-                        }
+                    displayTextView.text = when (operand) {
+                        "+" -> (firstOperand + secondOperand).toString()
 
-                    }
-                    "-" -> {
-                        operands = displayTextView.text.toString().split('-')
-                        if (operands[1].isNotEmpty() ) {
-                            firstOperand = operands[0].toDouble()
-                            secondOperand = operands[1].toDouble()
-                            displayTextView.text = (firstOperand - secondOperand).toString()
-                        } else {
-                            displayTextView.text
-                        }
-                    }
-                    "*" -> {
-                        operands = displayTextView.text.toString().split('*')
-                        if (operands[1].isNotEmpty() ) {
-                            firstOperand = operands[0].toDouble()
-                            secondOperand = operands[1].toDouble()
-                            displayTextView.text = (firstOperand * secondOperand).toString()
-                        } else {
-                            displayTextView.text
-                        }
-                    }
-                    "/" -> {
-                        operands = displayTextView.text.toString().split('/')
-                        if (operands[1].isNotEmpty() ) {
-                            firstOperand = operands[0].toDouble()
-                            secondOperand = operands[1].toDouble()
-                            if (secondOperand != 0.0) {
-                                displayTextView.text = (firstOperand / secondOperand).toString()
+                        "-" -> (firstOperand - secondOperand).toString()
+
+                        "*" -> (firstOperand * secondOperand).toString()
+
+                        "/" -> {
+                            if (secondOperand != 0F) {
+                                (firstOperand / secondOperand).toString()
                             } else {
-                                displayTextView.text = getString(R.string.Can_not_divide_by_0)
+                                getString(R.string.Can_not_divide_by_0)
                                 return
                             }
-                        } else {
-                            displayTextView.text
                         }
+                        else -> ""
                     }
+
+                    operatorPlus = false
+                    operatorMinus = false
+                    operatorMultiply = false
+                    operatorDivide = false
+                    dotUsed = true
                 }
-                operatorPlus = false
-                operatorMinus = false
-                operatorMultiply = false
-                operatorDivide = false
             }
         }
     }
