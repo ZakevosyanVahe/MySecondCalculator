@@ -78,70 +78,70 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         when (view?.id) {
             R.id.btn0 -> {
-                if (displayTextView.text == "" || displayTextView.text == "0") {
+                if (displayTextView.text == "" || displayTextView.text == "0" || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._0)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._0))
             }
             R.id.btn1 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._1)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._1))
             }
             R.id.btn2 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text.toString() == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._2)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._2))
             }
             R.id.btn3 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text.toString() == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._3)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._3))
             }
             R.id.btn4 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text.toString() == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._4)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._4))
             }
             R.id.btn5 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text.toString() == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._5)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._5))
             }
             R.id.btn6 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text.toString() == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._6)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._6))
             }
             R.id.btn7 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text.toString() == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._7)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._7))
             }
             R.id.btn8 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text.toString() == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._8)
                 } else
                     displayTextView.text =
                         displayTextView.text.toString().plus(getString(R.string._8))
             }
             R.id.btn9 -> {
-                if (displayTextView.text.toString() == getString(R.string._0)) {
+                if (displayTextView.text.toString() == getString(R.string._0) || displayTextView.text == getString(R.string.Can_not_divide_by_0)) {
                     displayTextView.text = getString(R.string._9)
                 } else
                     displayTextView.text =
@@ -232,7 +232,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val secondOperand: Float
                 val operand: String
                 val operands: List<String> = displayTextView.text.toString().split(" ")
-                if (operands.size > 2 && operands[2].isNotEmpty()) {
+                if (operands.size > 2 && operands[2].isNotEmpty() && displayTextView.text != getString(R.string.Can_not_divide_by_0)) {
                     firstOperand = operands[0].toFloat()
                     secondOperand = operands[2].toFloat()
                     operand = operands[1]
@@ -249,7 +249,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                                 (firstOperand / secondOperand).toString()
                             } else {
                                 getString(R.string.Can_not_divide_by_0)
-                                return
                             }
                         }
                         else -> ""
